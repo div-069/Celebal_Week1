@@ -1,89 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Star Pattern Maker</title>
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <style>
-        body {
-            background: linear-gradient(90deg, #a1c4fd, #c2e9fb);
-            font-family: 'Segoe UI', sans-serif;
-            padding: 40px 0;
-        }
-        .card-box {
-            max-width: 420px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 35px;
-            border-radius: 15px;
-            box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            color: #444;
-        }
-        .output-box {
-            max-width: 420px;
-            margin: 30px auto;
-            background-color: #222831;
-            color: #00ff99;
-            padding: 25px;
-            border-radius: 12px;
-            font-family: 'Courier New', monospace;
-            font-size: 18px;
-            white-space: pre;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Star Triangle Maker</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background: #f7f9fc;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 60px 20px;
+    }
+
+    .main-wrapper {
+      max-width: 520px;
+      margin: auto;
+      background: white;
+      padding: 40px 30px;
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    .radio-group {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 25px;
+    }
+
+    .radio-group input[type="radio"] {
+      display: none;
+    }
+
+    .radio-group label {
+      flex: 1;
+      text-align: center;
+      padding: 10px 0;
+      margin: 0 5px;
+      cursor: pointer;
+      border: 1.5px solid #ccc;
+      border-radius: 8px;
+      background-color: #f8f9fa;
+      transition: 0.3s;
+      font-weight: 500;
+      color: #555;
+    }
+
+    .radio-group input[type="radio"]:checked + label {
+      background-color: #e6f0ff;
+      border-color: #4a90e2;
+      color: #2a4c9e;
+    }
+
+    .radio-group label:hover {
+      background-color: #edf4ff;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      border: 1.5px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      transition: border-color 0.3s;
+    }
+
+    input[type="number"]:focus {
+      border-color: #4a90e2;
+      outline: none;
+    }
+
+    button.btn-primary {
+      width: 100%;
+      padding: 10px;
+      font-weight: 600;
+      border-radius: 8px;
+      border: none;
+      background-color: #4a90e2;
+      transition: 0.3s;
+    }
+
+    button.btn-primary:hover {
+      background-color: #3a6fc1;
+    }
+
+    .pattern-output {
+      margin-top: 35px;
+      background: #f3f7fc;
+      font-family: monospace;
+      padding: 20px;
+      border-radius: 10px;
+      white-space: pre;
+      color: #2a4c9e;
+      border: 1.5px solid #a8c1f0;
+      min-height: 100px;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 14px;
+      margin-top: 40px;
+      color: #888;
+    }
+
+    footer span {
+      font-weight: 600;
+      color: #4a90e2;
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
+<div class="main-wrapper">
+  <h1>Star Triangle Maker</h1>
+  <form method="POST" action="/">
+    <div class="radio-group" role="radiogroup" aria-label="Select Triangle Pattern">
+      <input type="radio" id="lower" name="triangle_type" value="lower" required
+             {% if triangle_type == 'Lower' %} checked {% endif %}>
+      <label for="lower">Lower</label>
 
-    <div class="card-box">
-        <form method="POST" action="/">
-            <h2 class="text-center mb-4">Create a Star Triangle</h2>
+      <input type="radio" id="upper" name="triangle_type" value="upper"
+             {% if triangle_type == 'Upper' %} checked {% endif %}>
+      <label for="upper">Upper</label>
 
-            <label class="mb-2 d-block fw-semibold">Choose Pattern</label>
-            <div class="mb-3">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="triangle_type" id="lower" value="lower" required
-                    {% if triangle_type == "lower" %}checked{% endif %}>
-                    <label class="form-check-label" for="lower">Lower Triangle</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="triangle_type" id="upper" value="upper"
-                    {% if triangle_type == "upper" %}checked{% endif %}>
-                    <label class="form-check-label" for="upper">Upper Triangle</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="triangle_type" id="pyramid" value="pyramid"
-                    {% if triangle_type == "pyramid" %}checked{% endif %}>
-                    <label class="form-check-label" for="pyramid">Pyramid</label>
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="size" class="form-label">Enter Height</label>
-                <input type="number" class="form-control" name="size" id="size" min="1" placeholder="e.g., 5" required
-                value="{{ request.form.size or '' }}">
-            </div>
-
-            <button type="submit" class="btn btn-primary w-100">Show Pattern</button>
-        </form>
+      <input type="radio" id="pyramid" name="triangle_type" value="pyramid"
+             {% if triangle_type == 'Pyramid' %} checked {% endif %}>
+      <label for="pyramid">Pyramid</label>
     </div>
 
-    {% if triangle %}
-    <div class="output-box text-center" role="region" aria-label="{{ triangle_type }} Star Pattern">
-        <h3 class="text-white mb-3">{{ triangle_type|capitalize }} Star Pattern</h3>
-        {% for line in triangle %}
-        {{ line }}
-        {% endfor %}
-    </div>
-    {% endif %}
+    <input type="number" name="size" min="1" placeholder="Enter height (e.g. 5)" required
+           value="{{ request.form.size if request.method=='POST' else '' }}">
 
+    <button type="submit" class="btn btn-primary">Show Pattern</button>
+  </form>
+
+  {% if triangle %}
+    <div class="pattern-output mt-4" aria-live="polite" aria-atomic="true">
+{% for line in triangle %}
+{{ line }}
+{% endfor %}
+    </div>
+  {% endif %}
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<footer>
+  Made with ❤ by <span>Divyanshu Chaudhary</span>
+</footer>
+
 </body>
 </html>
